@@ -1,0 +1,61 @@
+.secondary {
+  color: rgba(0, 0, 0, 0.5);
+}
+md-card-title {
+  text-align: right;
+}
+
+.listItem {
+  transition: color 0.8s;
+  -webkit-transition: color 0.8s;
+}
+
+.listItemActive {
+  color: red;
+  transition: color 0.4s;
+  -webkit-transition: color 0.4s;
+}
+
+.live-stream__player {
+  position: relative;
+}
+
+.live-stream__player iframe {
+  background: #000 url('https://www.scad.edu/sites/all/themes/swarm/images/ajaxSpinner.gif') center center no-repeat;
+  background-size: 4rem 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.music-streams__select {
+  width: 100%;
+  display: block;
+}
+
+
+/**/
+/* SIDEBAR LAYOUT */
+/**/
+.mdSidenavContainer{
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+#twitter-search-widget{
+  flex: 2;
+  overflow: auto;
+  display: block;
+}
+
+#twitter-search-widget iframe {
+  overflow: hidden;
+  height: 100%;
+}
+
+#video-streams{
+  min-height: 60px;
+}
+#music-streams{
+  min-height: 60px;
+}
+

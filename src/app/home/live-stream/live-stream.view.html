@@ -1,0 +1,72 @@
+<md-sidenav-layout fullscreen>
+
+  <md-sidenav #videoSidenav>
+    <!--<md-toolbar color="primary" id="sidenav-toolbar">-->
+      <!--<button md-icon-button (click)="videoSidenav.close();"><md-icon>close</md-icon></button>-->
+    <!--</md-toolbar>-->
+
+    <section class="mdSidenavContainer">
+      <!-- Video List -->
+      <md-nav-list id="video-streams">
+        <a md-list-item
+           *ngFor="let stream of localState.streams"
+           [attr.class]="stream.id == localState.currentStream.id ? 'listItem listItemActive' : 'listItem'"
+           (click)="setCurrentStream($event, stream)">
+          <md-icon md-list-icon>{{stream.icon}}</md-icon>
+          <span md-line>{{stream.name}}</span>
+          <span md-line class="secondary">{{stream.dateTime | date:'MM/dd/yyyy'}}</span>
+        </a>
+      </md-nav-list>
+
+      <!-- Twitter timelines-->
+      <md-content id="twitter-search-widget">Loading timeline...</md-content>
+
+      <!-- Music -->
+      <md-content id="music-streams" style="text-align:center;">
+        <select class="music-streams__select" [ngModel]="localState.currentPlaylist" (ngModelChange)="onChange($event)">
+          <option *ngFor="let i of localState.musicPlaylists" [value]="i.id">{{i.name}}</option>
+        </select>
+
+        <iframe width="100%" height="80" scrolling="no" frameborder="no"
+                style="max-width: 300px; display:inline-block"
+                [src]="localState.currentPlaylist.url"></iframe>
+
+        <!--
+        &amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>
+        <iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/221769024&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>
+        <iframe style="max-width: 300px" width="100%" height="150" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/221769097%3Fsecret_token%3Ds-epau5&amp;color=ff5500&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false"></iframe>
+        <br/>
+        <iframe style="max-width: 300px" width="100%" height="150" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/221769024&amp;color=ff5500&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false"></iframe>
+        -->
+      </md-content>
+    </section>
+  </md-sidenav>
+
+  <md-toolbar color="primary">
+    <button md-icon-button (click)="videoSidenav.open();"><md-icon>menu</md-icon></button>
+    &nbsp;&nbsp;&nbsp;
+    KC NG EXTENDED
+  </md-toolbar>
+
+  <md-card id="videos">
+    <!--<md-card-title>-->
+      <!--<a href="https://www.youtube.com/watch?v={{localState.currentStream.id}}" target="_blank">-->
+        <!--{{localState.currentStream.name}}-->
+      <!--</a>-->
+    <!--</md-card-title>-->
+    <md-card-content>
+      <div class="live-stream__player" layout="row" layout-align="center center"
+           [style.width]="localState.playerWidth">
+        <iframe class="live-stream__youtue"
+                [width]="localState.playerWidth"
+                [height]="localState.playerHeight"
+                [src]="'https://www.youtube.com/embed/'+localState.currentStream.id+'?rel=0&amp;showinfo=1&autoplay='+localState.autoPlay"
+                frameborder="0"
+                allowfullscreen
+                allowtransparency="true"></iframe>
+      </div>
+      <p md-line>{{localState.currentStream.description}}</p>
+    </md-card-content>
+  </md-card>
+
+</md-sidenav-layout>

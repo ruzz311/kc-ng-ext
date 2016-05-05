@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+import {AppState} from '../app.service';
+
 
 /*
  * We're loading this component asynchronously
@@ -10,22 +12,14 @@ console.log('`About` component loaded asynchronously');
 
 @Component({
   selector: 'about',
-  styles: [`
-    h1 {
-      font-family: Arial, Helvetica, sans-serif
-    }
-  `],
-  template: `
-  <md-card>
-    <h1>
-      patrick@AngularClass.com
-    </h1>
-  </md-card>
-
-  `
+  styles: [ require('./about.css') ],
+  template: require('./about.html'),
 })
 export class About {
-  constructor() {
+  // Set our default values
+  localState = { value: '' };
+
+  constructor(public appState: AppState) {
 
   }
 
@@ -53,3 +47,4 @@ export class About {
   }
 
 }
+

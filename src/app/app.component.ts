@@ -2,7 +2,7 @@
  * Angular 2 decorators and services
  */
 import {Component, ViewEncapsulation} from '@angular/core';
-import {RouteConfig, Router} from '@angular/router-deprecated';
+import {RouteConfig, Router, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 
 import {Home} from './home';
 import {AppState} from './app.service';
@@ -16,77 +16,29 @@ import {RouterActive} from './router-active';
   selector: 'app',
   pipes: [ ],
   providers: [ ],
-  directives: [ RouterActive ],
+  directives: [ RouterActive, ROUTER_DIRECTIVES ],
   encapsulation: ViewEncapsulation.None,
   styles: [
     require('normalize.css'),
-    `
-    md-toolbar ul {
-      display: inline;
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      width: 60px;
-    }
-    md-toolbar li {
-      display: inline;
-    }
-    md-toolbar li.active {
-      background-color: lightgray;
-    }
-  `],
-  template: `
-    <header>
-      <md-toolbar color="primary">
-        <span>{{ name }}</span>
-        <nav>
-          <ul>
-            <li router-active>
-              <a [routerLink]=" ['Index'] ">Index</a>
-            </li>
-            |
-            <li router-active>
-              <a [routerLink]=" ['Home'] ">Home</a>
-            </li>
-            |
-            <li router-active>
-              <a [routerLink]=" ['About'] ">About</a>
-            </li>
-          </ul>
-        </nav>
-      </md-toolbar>
-    </header>
-    <md-progress-bar mode="indeterminate" color="primary" *ngIf="loading"></md-progress-bar>
-
-    <main>
-      <router-outlet></router-outlet>
-    </main>
-
-    <pre>this.appState.state = {{ appState.state | json }}</pre>
-
-    <footer>
-      WebPack Angular 2 Starter by <a [href]="url">@AngularClass</a>
-      <div>
-        <img [src]="angularclassLogo" width="10%">
-      </div>
-    </footer>
-  `
+    require('./app.css')
+  ],
+  template: require('./app.html')
 })
+
 @RouteConfig([
   { path: '/',      name: 'Index', component: Home, useAsDefault: true },
   { path: '/home',  name: 'Home',  component: Home },
   // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
   { path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About') }
 ])
+
 export class App {
   angularclassLogo = 'assets/img/angularclass-avatar.png';
   loading = false;
   name = 'Angular 2 Webpack Starter';
   url = 'https://twitter.com/AngularClass';
 
-  constructor(
-    public appState: AppState) {
-
+  constructor(public router: Router, public appState: AppState) {
   }
 
   ngOnInit() {

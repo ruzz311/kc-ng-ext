@@ -24,7 +24,7 @@
       {
         "call-signature": "space",
         "index-signature": "space",
-        "parameter": "space",
+        //"parameter": "space",
         "property-declaration": "space",
         "variable-declaration": "space"
       }
@@ -125,10 +125,10 @@
     "whitespace": [
       true,
       "check-branch",
-      "check-decl",
-      "check-operator",
-      "check-separator",
-      "check-type"
+      "check-decl"
+      //"check-operator",
+      //"check-separator",
+      //"check-type"
     ]
 
   }
