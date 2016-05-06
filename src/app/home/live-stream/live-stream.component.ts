@@ -120,7 +120,6 @@ export class LiveStream {
       {id: 'full', width: '100%', height: 720}
     ];
 
-
     this.localState.musicPlaylists = [
       {
         id: '221769097%3Fsecret_token%3Ds-epau5',
@@ -131,11 +130,13 @@ export class LiveStream {
         name: 'afternoon',
         url: this._createSoundcloudUrl('221769024')
       }, {
-        id: '1',
-        name: 'spotify test',
-        url: ['https://embed.spotify.com/?uri=',
-          'spotify:user:ruzz311:playlist:0zNFEjsiKRTkD2n7EmspWb',
-          '&theme=white&view=coverart'].join('')
+        id: '2Nc2KNyWxYXISCkHXajOHC',
+        name: 'indie alternative',
+        url: this._createSpottifyLink('spotify:user:ruzz311:playlist:2Nc2KNyWxYXISCkHXajOHC')
+      }, {
+        id: '1ph4dDlqSYhdIti0Hram7K',
+        name: 'Funk Radio',
+        url: this._createSpottifyLink('spotify:user:ruzz311:playlist:1ph4dDlqSYhdIti0Hram7K')
       }
     ];
 
@@ -147,8 +148,8 @@ export class LiveStream {
       }
     ];
 
-    this.localState.currentPlaylist = this.localState.musicPlaylists[2];
     this.localState.currentStream = this.localState.streams[0];
+    this.setMusicPlaylist('1ph4dDlqSYhdIti0Hram7K');
 
     this.setPlayerSize(4);
   }
@@ -202,16 +203,14 @@ export class LiveStream {
     this.localState.currentStream = stream;
   }
 
-  onChange(newValue) {
-    console.log(newValue);
-    let playlists = this.localState.musicPlaylists;
-    let found = playlists.filter((row) => row.id === newValue)[0];
-    if (found.length > 0) {
+  setMusicPlaylist(playlistId) {
+    let found = this.localState.musicPlaylists.filter((item)=>{
+      return item.id == playlistId;
+    });
+
+    if (found && found.length > 0) {
       this.localState.currentPlaylist = found[0];
-    } else {
-      this.localState.currentPlaylist = this.localState.musicPlaylists[0];
     }
-    // this.localState.currentPlaylist = newValue;
     // ... do other stuff here ...
   }
 
@@ -223,13 +222,22 @@ export class LiveStream {
 
   _createSoundcloudUrl(id) {
     let pre = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/';
-    let post = [
+    let post = '&amp;' + [
       'color=ff5500',
       'auto_play=false',
       'hide_related=false',
       'show_comments=true',
       'show_user=true',
       'show_reposts=false'].join('&amp;');
-    return pre + id + '&amp;' + post;
+    return pre + id + post;
+  }
+
+  _createSpottifyLink(spottifyUri) {
+    let pre = 'https://embed.spotify.com/?uri=';
+    let post = '&' + [
+      'theme=white',
+      'view=coverart'].join('&');
+
+    return pre + spottifyUri + post;
   }
 }

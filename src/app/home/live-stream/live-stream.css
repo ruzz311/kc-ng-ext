@@ -30,6 +30,7 @@ md-card-title {
 .music-streams__select {
   width: 100%;
   display: block;
+  margin: 0 0 1em;
 }
 
 
@@ -43,7 +44,7 @@ md-card-title {
 }
 #twitter-search-widget{
   flex: 2;
-  overflow: auto;
+  overflow: hidden;
   display: block;
 }
 

@@ -11,3 +11,7 @@
 /*md-toolbar li.active {*/
 /*background-color: lightgray;*/
 /*}*/
+
+.md-sidenav-backdrop {
+  opacity: 0.25!important;
+}
